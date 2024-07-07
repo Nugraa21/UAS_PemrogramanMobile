@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Interaktif dengan Lokasi</title>
+    <!-- Menyertakan CSS Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #map {
+            height: 900px;
+            width: 100%;
+            z-index: 1;
+        }
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            background-color: #333;
+            padding: 10px;
+        }
+        .navbar a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            z-index: 100;
+        }
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="javascript:void(0)" onclick="openNav()">Lihat Lokasi</a>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#" onclick="showLocation('home')">Rumah Saya " Ludang "</a>
+        <a href="#" onclick="showLocation('friend1')">Rumah Rohmat</a>
+        <a href="#" onclick="showLocation('friend2')">Rumah Yoga</a>
+        <a href="#" onclick="showLocation('friend3')">Rumah Fadrian</a>
+        <a href="#" onclick="showAllLocations()">Tampilkan Semua Rumah</a>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Menyertakan JavaScript Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var locations = {
+            'home': {
+                coords: [-7.820680, 110.426558],
+                name: "Ludang ( Pembuat Proyek Ini)",
+                image: "https://via.placeholder.com/150"
+            },
+            'friend1': {
+                coords: [-7.818056, 110.392439],
+                name: "Rohmat cahyo susilo",
+                image: "https://via.placeholder.com/150"
+            },
+            'friend2': {
+                coords: [-2.461111, 106.131780],
+                name: "Yoga saputra",
+                image: "https://via.placeholder.com/150"
+            },
+            'friend3': {
+                coords: [-5.512911, 122.595906],
+                name: "Muhammad Fadrian Samhar",
+                image: "https://via.placeholder.com/150"
+            }
+        };
+
+        var map = L.map('map').setView([0, 0], 2);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var markers = {};
+
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+
+        function showLocation(locationKey) {
+            // Clear existing markers
+            clearMarkers();
+            var location = locations[locationKey];
+            var popupContent = '<b>' + location.name + '</b><br />Ini adalah ' + location.name + '.<br /><img src="' + location.image + '" alt="' + location.name + '" width="100" height="100">';
+            markers[locationKey] = L.marker(location.coords).addTo(map)
+                .bindPopup(popupContent)
+                .openPopup();
+            map.setView(location.coords, 13);
+            closeNav();
+        }
+
+        function showAllLocations() {
+            // Clear existing markers
+            clearMarkers();
+            var bounds = [];
+            for (var key in locations) {
+                if (locations.hasOwnProperty(key)) {
+                    var location = locations[key];
+                    var popupContent = '<b>' + location.name + '</b><br />Ini adalah ' + location.name + '.<br /><img src="' + location.image + '" alt="' + location.name + '" width="100" height="100">';
+                    markers[key] = L.marker(location.coords).addTo(map)
+                        .bindPopup(popupContent);
+                    bounds.push(location.coords);
+                }
+            }
+            map.fitBounds(bounds);
+            closeNav();
+        }
+
+        function clearMarkers() {
+            for (var key in markers) {
+                if (markers.hasOwnProperty(key)) {
+                    map.removeLayer(markers[key]);
+                }
+            }
+            markers = {};
+        }
+    </script>
+</body>
+</html>

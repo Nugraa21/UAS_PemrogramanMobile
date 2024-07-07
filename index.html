@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <!-- Menyertakan CSS Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- icon -->
+    <link rel="icon" href="......">
+    <!-- Title -->
+    <title>Nugra.MAP</title>
+</head>
+<body>
+    <div class="navbar">
+        <a href="javascript:void(0)" onclick="openNav()">Tampilkan Rumah </a>
+        <a href="https://github.com/Nugraa21">Ludang Prasetyo Nugroho ( 225510017 )</a>
+    </div>
+
+    <div id="mySidebar" class="sidebar">
+        <a style="border: none; background-color: rgba(0, 0, 0, 0);" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#" onclick="showLocation('home')">Rumah Saya " Ludang "</a>
+        <a href="#" onclick="showLocation('friend1')">Rumah Rohmat</a>
+        <a href="#" onclick="showLocation('friend2')">Rumah Yoga</a>
+        <a href="#" onclick="showLocation('friend3')">Rumah Fadrian</a>
+        <a href="#" onclick="showLocation('friend4')">Rumah Kasildo trio</a>
+        <a href="#" onclick="showLocation('friend5')">Rumah Riski</a>
+        <a class="All" href="#" onclick="showAllLocations()">Show All</a>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Menyertakan JavaScript Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- js -->
+    <script src="assets/js/scripts.js"></script>
+</body>
+</html>

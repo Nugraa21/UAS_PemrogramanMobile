@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Interaktif</title>
+    <!-- Menyertakan CSS Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Peta Interaktif</h1>
+    <div id="map"></div>
+    
+    <!-- Menyertakan JavaScript Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Koordinat lokasi rumah Anda
+        var homeCoords = [-7.820669, 110.426507];
+
+        // Inisialisasi peta
+        var map = L.map('map').setView(homeCoords, 13);
+
+        // Menambahkan tile layer dari OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Menambahkan marker ke peta di lokasi rumah Anda
+        var marker = L.marker(homeCoords).addTo(map)
+            .bindPopup('<b>Ini Rumah Saya!</b><br />Lokasi rumah saya.').openPopup();
+    </script>
+</body>
+</html>
